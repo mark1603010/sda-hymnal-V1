@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0074D9" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <title>SDA Hymnal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+  <h1>SDA Hymnal</h1>
+  <div class="top-bar">
+    <input type="text" id="search" placeholder="Search hymn by title or number..." />
+
+    <div class="nav-buttons">
+      <button onclick="goHome()">Home</button>
+      <button onclick="goAbout()">About</button>
+    </div>
+
+    <div class="theme-toggle">
+        <label>
+        <input type="checkbox" id="darkModeToggle" />
+        Dark Mode
+        </label>
+    </div>
+  </div>
+</header>
+
+  <main id="hymn-list"></main>
+
+  <footer class="app-footer">
+    <div class="footer-content">
+      <img src="images/logo/sda-logo.png" alt="SDA Logo" class="footer-logo" />
+      <p>&copy; 2025 Philippine Edition Seventh-Day Adventist Hymnal Web App</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
