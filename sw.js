@@ -7,7 +7,9 @@ const urlsToCache = [
   '/manifest.json',
   '/hymns.json',
   '/images/my_photo/roleen.JPG',
-  // Add more assets like icons, fonts, etc.
+  '/images/icons/icon-192.png',
+  '/images/icons/icon-512.png'
+  // Add more assets as needed
 ];
 
 // Install event: cache essential files
