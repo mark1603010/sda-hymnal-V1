@@ -91,7 +91,7 @@ function goHome() {
 function goAbout() {
   hymnList.innerHTML = `
     <div class="hymn-card about-card">
-      <img src="images/my_photo/roleen.jpg" alt="Your Photo" class="about-photo" />
+      <img src="images/my_photo/roleen.JPG" alt="Your Photo" class="about-photo" />
       <h2>About This App</h2>
       <p>This SDA Hymnal web app was thoughtfully created with the sincere hope of making hymns more accessible for worship and personal devotion. This aimed to offer a gentle yet effective tool that helps users easily find and engage with beloved hymns anytime and anywhere. While it is a modest effort, the app includes features such as dynamic search to quickly locate hymns, a responsive design to ensure a smooth experience across devices, and scalable data integration to accommodate future growth and enhancements.</p>
 
