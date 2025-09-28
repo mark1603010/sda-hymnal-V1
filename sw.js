@@ -7,8 +7,8 @@ const urlsToCache = [
   '/manifest.json',
   '/hymns.json',
   '/images/my_photo/roleen.JPG',
-  '/images/icons/icon-192.PNG',
-  '/images/icons/icon-512.PNG'
+  '/images/icons/icon-192.png',
+  '/images/icons/icon-512.png'
   // Add more assets as needed
 ];
 
