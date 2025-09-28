@@ -59,7 +59,7 @@ function showFullHymn(hymn) {
       </div>
 
       <div class="lyrics-footer">
-        <button class="back-button" onclick="goHome()">Back to list</button>
+        <button class="back-button" onclick="goHome()">Home</button>
       </div>
     </div>
 
@@ -106,7 +106,7 @@ function goAbout() {
             <i class="fab fa-facebook"></i> Facebook Profile
           </a>
       </div><br>
-      <button onclick="goHome()">Back to Hymns</button>
+      <button class="back-button" onclick="goHome()">Home</button>
     </div>
   `;
 }
