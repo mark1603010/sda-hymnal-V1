@@ -124,11 +124,7 @@ darkModeToggle.addEventListener('change', () => {
   document.body.classList.toggle('dark', darkModeToggle.checked);
 });
 
-// if ('serviceWorker' in navigator) {
-//   navigator.serviceWorker.register('sw.js')
-//     .then(() => console.log('Service Worker registered'))
-//     .catch(error => console.error('Service Worker registration failed:', error));
-// }
+
 
 
 let lyricsZoomLevel = 1;
@@ -291,8 +287,3 @@ function enableNoteZoom() {
   noteImage.dataset.zoomEnabled = 'true';
 }
 
-// if ('serviceWorker' in navigator) {
-//   navigator.serviceWorker.register('sw.js', { scope: './' })
-//     .then(reg => console.log('Service Worker registered:', reg))
-//     .catch(err => console.error('Service Worker registration failed:', err));
-// }
