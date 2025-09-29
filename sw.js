@@ -1,15 +1,13 @@
 const CACHE_NAME = 'sda-hymnal-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/app.js',
-  '/manifest.json',
-  '/hymns.json',
-  '/images/my_photo/roleen.JPG',
-  '/images/icons/icon-192.png',
-  '/images/icons/icon-512.png'
-  // Add more assets as needed
+  'index.html',
+  'style.css',
+  'app.js',
+  'manifest.json',
+  'hymns.json',
+  'images/my_photo/roleen.JPG',
+  'images/icons/icon-192.png',
+  'images/icons/icon-512.png'
 ];
 
 // Install event: cache essential files
