@@ -5,6 +5,8 @@ const darkModeToggle = document.getElementById('darkModeToggle');
 let hymns = [];
 let currentFontSize = 1.7;
 
+const CURRENT_VERSION = 'v1.0.1'; // Match your CACHE_NAME in sw.js
+
 
 navigator.serviceWorker.addEventListener('message', event => {
   if (event.data?.type === 'UPDATE_AVAILABLE') {
@@ -125,19 +127,23 @@ function goAbout() {
 
 
 function showUpdatePrompt() {
+  const dismissedVersion = localStorage.getItem('dismissedVersion');
+  if (dismissedVersion === CURRENT_VERSION) return; // Don't show again
+
   const banner = document.createElement('div');
   banner.textContent = 'New hymns available! Click to refresh.';
   banner.className = 'update-banner';
 
   banner.onclick = () => {
-    banner.remove(); // 🧹 Remove banner immediately
+    localStorage.setItem('dismissedVersion', CURRENT_VERSION); // ✅ Remember dismissal
+    banner.remove();
 
-    // Listen for the new service worker to take control
+
     navigator.serviceWorker.addEventListener('controllerchange', () => {
-      location.reload(); // 🔄 Reload only after update is active
+      location.reload();
     });
 
-    // Tell the waiting service worker to activate immediately
+
     if (navigator.serviceWorker.controller) {
       navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
     }
@@ -145,9 +151,7 @@ function showUpdatePrompt() {
 
   document.body.appendChild(banner);
 }
-
-
-
+ 
 searchInput.addEventListener('input', e => {
   const query = e.target.value.toLowerCase();
   const filtered = hymns.filter(hymn =>
