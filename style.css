@@ -399,3 +399,17 @@ footer {
 .contact-links i {
   margin-right: 8px;
 }
+
+
+.update-banner {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #ffd700;
+  color: #000;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 9999;
+}
