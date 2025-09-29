@@ -49,5 +49,13 @@
       .catch(err => console.error('Service Worker registration failed:', err));
   }
 </script>
+<script>
+  // Preload hymns.json on page load
+  window.addEventListener('load', async () => {
+    const res = await fetch('hymns.json');
+    hymnsData = await res.json();
+  });
+</script>
+
 </body>
 </html>
