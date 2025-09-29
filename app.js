@@ -20,7 +20,7 @@ fetch('hymns.json')
     renderHymns(hymns);
 
     if (navigator.serviceWorker.controller) {
-  navigator.serviceWorker.controller.postMessage('checkForUpdate'); //pag trigger ug message
+    navigator.serviceWorker.controller.postMessage('checkForUpdate'); //pag trigger ug message
 }
   });
 
@@ -125,6 +125,7 @@ function goAbout() {
 
 
 function showUpdatePrompt() {
+  console.log('Update available — showing banner');
   const banner = document.createElement('div');
   banner.textContent = 'New hymns available! Click to refresh.';
   banner.className = 'update-banner';
