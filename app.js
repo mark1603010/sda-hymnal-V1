@@ -5,6 +5,14 @@ const darkModeToggle = document.getElementById('darkModeToggle');
 let hymns = [];
 let currentFontSize = 1.7;
 
+
+navigator.serviceWorker.addEventListener('message', event => {
+  if (event.data?.type === 'UPDATE_AVAILABLE') {
+    showUpdatePrompt(); // your custom UI
+  }
+});
+
+
 fetch('hymns.json')
   .then(res => res.json())
   .then(data => {
@@ -110,6 +118,17 @@ function goAbout() {
     </div>
   `;
 }
+
+
+function showUpdatePrompt() {
+  const banner = document.createElement('div');
+  banner.textContent = 'New hymns available! Click to refresh.';
+  banner.className = 'update-banner';
+  banner.onclick = () => location.reload();
+  document.body.appendChild(banner);
+}
+
+
 
 searchInput.addEventListener('input', e => {
   const query = e.target.value.toLowerCase();
