@@ -129,8 +129,16 @@ function showUpdatePrompt() {
   banner.textContent = 'New hymns available! Click to refresh.';
   banner.className = 'update-banner';
   banner.onclick = () => {
-    banner.remove(); // 🧹 Remove the banner before reload
-    location.reload();
+    // Listen for the new service worker to take control
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      banner.remove(); // 🧹 Remove banner after control changes
+      location.reload(); // 🔄 Reload with fresh cache
+    });
+
+    // Tell the waiting service worker to activate immediately
+    if (navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
+    }
   };
   document.body.appendChild(banner);
 }
