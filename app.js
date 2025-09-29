@@ -18,6 +18,10 @@ fetch('hymns.json')
   .then(data => {
     hymns = data;
     renderHymns(hymns);
+
+    if (navigator.serviceWorker.controller) {
+  navigator.serviceWorker.controller.postMessage('checkForUpdate'); //pag trigger ug message
+}
   });
 
 function renderHymns(hymnsToRender) {
