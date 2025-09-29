@@ -125,20 +125,24 @@ function goAbout() {
 
 
 function showUpdatePrompt() {
-  // Check if user already dismissed this version
-  const dismissedVersion = localStorage.getItem('dismissedVersion');
-  const currentVersion = 'v1.0.1'; // 🔁 Update this when you bump CACHE_NAME
-
-  if (dismissedVersion === currentVersion) return; // Don't show again
-
   const banner = document.createElement('div');
   banner.textContent = 'New hymns available! Click to refresh.';
   banner.className = 'update-banner';
+
   banner.onclick = () => {
-    localStorage.setItem('dismissedVersion', currentVersion); // ✅ Remember dismissal
-    banner.remove(); // 🧹 Remove banner
-    location.reload(); // 🔄 Reload app
+    banner.remove(); // 🧹 Remove banner immediately
+
+    // Listen for the new service worker to take control
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      location.reload(); // 🔄 Reload only after update is active
+    });
+
+    // Tell the waiting service worker to activate immediately
+    if (navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
+    }
   };
+
   document.body.appendChild(banner);
 }
 
