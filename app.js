@@ -125,11 +125,13 @@ function goAbout() {
 
 
 function showUpdatePrompt() {
-  console.log('Update available — showing banner');
   const banner = document.createElement('div');
   banner.textContent = 'New hymns available! Click to refresh.';
   banner.className = 'update-banner';
-  banner.onclick = () => location.reload();
+  banner.onclick = () => {
+    banner.remove(); // 🧹 Remove the banner before reload
+    location.reload();
+  };
   document.body.appendChild(banner);
 }
 
