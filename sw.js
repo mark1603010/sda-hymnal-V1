@@ -1,4 +1,5 @@
 const CACHE_NAME = 'sda-hymnal-v1.0.4';  //mao ni ang mo show sa version nig naay update
+console.log('Service Worker running with version:', CACHE_NAME);
 const urlsToCache = [
   'index.html',
   'style.css',
