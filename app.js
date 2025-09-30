@@ -144,25 +144,49 @@ function showUpdatePrompt() {
   if (dismissedVersion === CURRENT_VERSION) return; // Don't show again
 
   const banner = document.createElement('div');
-  banner.textContent = 'New hymns available! Click to refresh.';
   banner.className = 'update-banner';
+  banner.innerHTML = `
+    <span>New hymns available!</span>
+    <button id="refresh-btn">Refresh</button>
+  `;
 
-  banner.onclick = () => {
+  // Initial hidden state for animation
+  banner.style.cssText = `
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #4caf50;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    font-weight: bold;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+  `;
+
+  document.body.appendChild(banner);
+
+  // Animate in
+  setTimeout(() => {
+    banner.style.transform = 'translateY(0)';
+  }, 50);
+
+  // Handle refresh button click
+  document.getElementById('refresh-btn').onclick = () => {
     localStorage.setItem('dismissedVersion', CURRENT_VERSION); // ✅ Remember dismissal
     banner.remove();
-
 
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       location.reload();
     });
 
-
     if (navigator.serviceWorker.controller) {
       navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
     }
   };
-
-  document.body.appendChild(banner);
 }
  
 searchInput.addEventListener('input', e => {
