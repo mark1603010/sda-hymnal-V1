@@ -16,6 +16,17 @@ navigator.serviceWorker.addEventListener('message', event => {
   }
 });
 
+function showOfflineBanner() {
+  document.getElementById('offline-banner').style.display = 'block';
+}
+
+function hideOfflineBanner() {
+  document.getElementById('offline-banner').style.display = 'none';
+}
+
+window.addEventListener('offline', showOfflineBanner);
+window.addEventListener('online', hideOfflineBanner);
+
 
 fetch('hymns.json')
   .then(res => res.json())
