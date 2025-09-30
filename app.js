@@ -5,7 +5,7 @@ const darkModeToggle = document.getElementById('darkModeToggle');
 let hymns = [];
 let currentFontSize = 1.7;
 
-const CURRENT_VERSION = 'v1.0.0'; // Match your CACHE_NAME in sw.js
+const CURRENT_VERSION = 'v1.0.1'; // Match your CACHE_NAME in sw.js
 console.log('Hymnal App running version:', CURRENT_VERSION);
 
 
