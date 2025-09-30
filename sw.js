@@ -35,6 +35,14 @@ self.addEventListener('activate', event => {
   self.clients.claim(); // take control of all pages
 });
 
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
+  );
+});
+
 //mao ni ang mopagawas sa message
 self.addEventListener('message', event => {
 if (event.data === 'checkForUpdate') {
