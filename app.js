@@ -95,6 +95,10 @@ function loadNotes() {
   });
 }
 
+window.addEventListener('load', () => {
+  loadNotes();
+});
+
 function fetchNotesFromNetwork() {
   fetch('notes.json')
     .then(res => {
