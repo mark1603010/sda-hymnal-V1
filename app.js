@@ -9,6 +9,57 @@ const CURRENT_VERSION = 'v1.0.1'; // Match your CACHE_NAME in sw.js
 console.log('Hymnal App running version:', CURRENT_VERSION);
 
 
+function showUpdatePrompt() {
+  const dismissedVersion = localStorage.getItem('dismissedVersion');
+  if (dismissedVersion === CURRENT_VERSION) return; // Don't show again
+
+  const banner = document.createElement('div');
+  banner.className = 'update-banner';
+  banner.innerHTML = `
+    <span>New hymns available!</span>
+    <button id="refresh-btn">Refresh</button>
+  `;
+
+  // Initial hidden state for animation
+  banner.style.cssText = `
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #4caf50;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    font-weight: bold;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+  `;
+
+  document.body.appendChild(banner);
+
+  // Animate in
+  setTimeout(() => {
+    banner.style.transform = 'translateY(0)';
+  }, 50);
+
+  // Handle refresh button click
+  document.getElementById('refresh-btn').onclick = () => {
+    localStorage.setItem('dismissedVersion', CURRENT_VERSION); // ✅ Remember dismissal
+    banner.remove();
+
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      location.reload();
+    });
+
+    if (navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
+    }
+  };
+}
+
+
 navigator.serviceWorker.addEventListener('message', event => {
   console.log('SW message received for version:', CURRENT_VERSION);
   if (event.data?.type === 'UPDATE_AVAILABLE') {
@@ -26,6 +77,43 @@ function hideOfflineBanner() {
 
 window.addEventListener('offline', showOfflineBanner);
 window.addEventListener('online', hideOfflineBanner);
+
+
+function loadNotes() {
+  const notesContainer = document.getElementById('notes'); // optional target
+  if (notesContainer) notesContainer.textContent = 'Loading notes…'; // gentle feedback
+
+  caches.match('notes.json').then(cached => {
+    if (cached) {
+      cached.json().then(renderNotes).catch(() => {
+        console.warn('Cached notes failed to parse.');
+        fetchNotesFromNetwork();
+      });
+    } else {
+      fetchNotesFromNetwork();
+    }
+  });
+}
+
+function fetchNotesFromNetwork() {
+  fetch('notes.json')
+    .then(res => {
+      if (!res.ok) throw new Error('Network response was not ok');
+      return res.json();
+    })
+    .then(renderNotes)
+    .catch(err => {
+      console.error('Failed to load notes:', err);
+      showNotesError(); // optional fallback UI
+    });
+}
+
+function showNotesError() {
+  const notesContainer = document.getElementById('notes');
+  if (notesContainer) {
+    notesContainer.textContent = 'Unable to load notes. Please try again later.';
+  }
+}
 
 
 fetch('hymns.json')
@@ -139,55 +227,7 @@ function goAbout() {
 }
 
 
-function showUpdatePrompt() {
-  const dismissedVersion = localStorage.getItem('dismissedVersion');
-  if (dismissedVersion === CURRENT_VERSION) return; // Don't show again
 
-  const banner = document.createElement('div');
-  banner.className = 'update-banner';
-  banner.innerHTML = `
-    <span>New hymns available!</span>
-    <button id="refresh-btn">Refresh</button>
-  `;
-
-  // Initial hidden state for animation
-  banner.style.cssText = `
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #4caf50;
-    color: white;
-    text-align: center;
-    padding: 12px;
-    font-weight: bold;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-    z-index: 1000;
-    transform: translateY(100%);
-    transition: transform 0.4s ease;
-  `;
-
-  document.body.appendChild(banner);
-
-  // Animate in
-  setTimeout(() => {
-    banner.style.transform = 'translateY(0)';
-  }, 50);
-
-  // Handle refresh button click
-  document.getElementById('refresh-btn').onclick = () => {
-    localStorage.setItem('dismissedVersion', CURRENT_VERSION); // ✅ Remember dismissal
-    banner.remove();
-
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-      location.reload();
-    });
-
-    if (navigator.serviceWorker.controller) {
-      navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
-    }
-  };
-}
  
 searchInput.addEventListener('input', e => {
   const query = e.target.value.toLowerCase();
