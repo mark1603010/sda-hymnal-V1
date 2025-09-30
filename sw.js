@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sda-hymnal-v1.0.3';  //mao ni ang mo show sa version nig naay update
+const CACHE_NAME = 'sda-hymnal-v1.0.4';  //mao ni ang mo show sa version nig naay update
 const urlsToCache = [
   'index.html',
   'style.css',
