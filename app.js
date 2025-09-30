@@ -9,7 +9,7 @@ const CURRENT_VERSION = 'v1.0.3'; // Match your CACHE_NAME in sw.js
 
 
 navigator.serviceWorker.addEventListener('message', event => {
-  console.log('SW message received:', CACHE_NAME);
+  console.log('SW message received for version:', CURRENT_VERSION);
   if (event.data?.type === 'UPDATE_AVAILABLE') {
     showUpdatePrompt(); // your custom UI
   }
