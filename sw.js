@@ -36,13 +36,16 @@ self.addEventListener('activate', event => {
 
 //mao ni ang mopagawas sa message
 self.addEventListener('message', event => {
-  if (event.data === 'checkForUpdate') {
+if (event.data === 'checkForUpdate') {
+  if (self.registration.waiting) {
+    // Only notify if a new SW is waiting to activate
     self.clients.matchAll().then(clients => {
       clients.forEach(client => {
         client.postMessage({ type: 'UPDATE_AVAILABLE' });
       });
     });
   }
+}
 
   if (event.data?.type === 'SKIP_WAITING') {
     self.skipWaiting(); // ✅ Activate new version immediately
