@@ -22,27 +22,30 @@ function showUpdatePrompt() {
 
   // Initial hidden state for animation
   banner.style.cssText = `
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #4caf50;
-    color: white;
-    text-align: center;
-    padding: 12px;
-    font-weight: bold;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-    z-index: 1000;
-    transform: translateY(100%);
-    transition: transform 0.4s ease;
-  `;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(76, 175, 80, 0.3); /* semi-transparent green */
+  color: white;
+  text-align: center;
+  padding: 8px 16px;
+  font-weight: bold;
+  font-style: italic;
+  border-radius: 8px;
+  box-shadow: none;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none; /* makes it feel like a watermark */
+  backdrop-filter: blur(2px); /* optional soft blur */
+  transition: opacity 0.4s ease;
+`;
 
   document.body.appendChild(banner);
 
   // Animate in
-  setTimeout(() => {
-    banner.style.transform = 'translateY(0)';
-  }, 50);
+ setTimeout(() => {
+  banner.style.opacity = '1';
+}, 50);
 
   // Handle refresh button click
   document.getElementById('refresh-btn').onclick = () => {
