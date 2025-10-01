@@ -432,3 +432,17 @@ footer {
   }
 }
 
+#offline-banner {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.3); /* semi-transparent black */
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-style: italic;
+  z-index: 999;
+  pointer-events: none; /* makes it non-interactive like a watermark */
+  backdrop-filter: blur(2px); /* optional soft blur behind text */
+}
