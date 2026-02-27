@@ -282,6 +282,7 @@ footer {
   word-wrap: break-word;
   text-align: center;
   text-align: justify;
+  text-justify: inter-word;
   animation: slideInLyrics 0.5s ease-in-out;
 
 }
