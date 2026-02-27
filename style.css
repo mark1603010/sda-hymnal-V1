@@ -280,7 +280,6 @@ footer {
   font-family: 'Georgia', serif;  /* Optional: gives a classic hymn-like feel */
   white-space: pre-wrap;       /* Ensures line breaks are respected */
   word-wrap: break-word;
-  text-align: center;
   text-align: justify;
   text-justify: inter-word;
   animation: slideInLyrics 0.5s ease-in-out;
