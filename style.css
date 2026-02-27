@@ -275,7 +275,7 @@ footer {
 }
 
 #hymnText {
-  font-size: 2rem;           /* Increased from 1.2rem for better readability */
+  font-size: 3rem;           /* Increased from 1.2rem for better readability */
   line-height: 1.6;
   font-family: 'Georgia', serif;  /* Optional: gives a classic hymn-like feel */
   white-space: pre-wrap;       /* Ensures line breaks are respected */
